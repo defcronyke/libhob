@@ -1,4 +1,4 @@
-/*Package libhob is the main package for this project.
+/*Package root is a package for this project.
 
 Copyright (c) 2021 Jeremy Carter <jeremy@jeremycarter.ca>
 
@@ -16,12 +16,18 @@ so furthermore, whenever legally possible, all license
 terms from all of the different technologies apply, with
 this project's license terms taking first priority.
 */
-package libhob
+package root
 
 import (
-	"gitlab.com/defcronyke/libhob/src/app"
+	"fmt"
+
+	"gitlab.com/defcronyke/libhob/src/id"
 )
 
-func Main(app app.HobAppIntr) {
-	app.Main()
+type HobRoot struct {
+	GlobalID id.HobID
+}
+
+func (h *HobRoot) Main() {
+	fmt.Println("root version")
 }

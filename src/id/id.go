@@ -1,4 +1,4 @@
-/*Package libhob is the main package for this project.
+/*Package id is a package for this project.
 
 Copyright (c) 2021 Jeremy Carter <jeremy@jeremycarter.ca>
 
@@ -16,12 +16,10 @@ so furthermore, whenever legally possible, all license
 terms from all of the different technologies apply, with
 this project's license terms taking first priority.
 */
-package libhob
+package id
 
-import (
-	"gitlab.com/defcronyke/libhob/src/app"
+type HobID int
+
+const (
+	HobRoot HobID = iota
 )
-
-func Main(app app.HobAppIntr) {
-	app.Main()
-}
