@@ -1,4 +1,4 @@
-# libhob - HOB Open Base Library  
+# libhob - Hob Open Base Library  
   
 Copyright (c) 2021 Jeremy Carter <jeremy@jeremycarter.ca>  
   

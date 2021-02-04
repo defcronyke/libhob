@@ -18,15 +18,57 @@ this project's license terms taking first priority.
 */
 package app
 
-import "fmt"
+import (
+	"encoding/json"
+	"fmt"
+
+	"gitlab.com/defcronyke/libhob/src/id"
+	"gitlab.com/defcronyke/libhob/src/kind"
+	"gitlab.com/defcronyke/libhob/src/result"
+	"gitlab.com/defcronyke/libhob/src/root"
+)
 
 type HobAppIntr interface {
-	Main()
+	Main() (result.HobResultSuccess, result.HobResultError, result.HobResultErrorCode)
 }
 
 type HobApp struct {
+	GlobalID   id.HobID     `json:"global_id"`
+	ParentKind kind.HobKind `json:"parent_kind"`
+	Kind       kind.HobKind `json:"kind"`
+	Name       string       `json:"name"`
+	Tag        string       `json:"tag"`
 }
 
-func (h *HobApp) Main() {
-	fmt.Println("default version")
+func NewHobApp(name string) HobApp {
+	root := root.NewHobRoot(name)
+
+	res := HobApp{
+		GlobalID:   root.GlobalID,
+		ParentKind: root.ParentKind,
+		Kind:       root.Kind,
+		Name:       root.Name,
+		Tag:        root.Tag,
+	}
+
+	return res
+}
+
+func (h *HobApp) Main() (result.HobResultSuccess, result.HobResultError, result.HobResultErrorCode) {
+	err := fmt.Errorf("You need to implement `HobApp::main()`, otherwise " +
+		"you will be seeing this error message right now, and nothing " +
+		"useful is going to happen.")
+
+	code := 1
+
+	return nil, err, &code
+}
+
+func (h *HobApp) String() string {
+	bytes, err := json.MarshalIndent(h, "", "  ")
+	if err != nil {
+		return fmt.Sprintf("%#v", h)
+	}
+
+	return fmt.Sprintf("%s", bytes)
 }

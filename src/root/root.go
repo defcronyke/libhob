@@ -19,15 +19,58 @@ this project's license terms taking first priority.
 package root
 
 import (
+	"encoding/json"
 	"fmt"
 
+	"gitlab.com/defcronyke/libhob/src/constant"
 	"gitlab.com/defcronyke/libhob/src/id"
+	"gitlab.com/defcronyke/libhob/src/kind"
+	"gitlab.com/defcronyke/libhob/src/result"
 )
 
 type HobRoot struct {
-	GlobalID id.HobID
+	GlobalID   id.HobID     `json:"global_id"`
+	ParentKind kind.HobKind `json:"parent_kind"`
+	Kind       kind.HobKind `json:"kind"`
+	Name       string       `json:"name"`
+	Tag        string       `json:"tag"`
 }
 
-func (h *HobRoot) Main() {
-	fmt.Println("root version")
+func NewHobRoot(name string) HobRoot {
+	newKind := kind.NewHobRootKind0()
+
+	name2 := name
+
+	if name2 == "" {
+		name2 = constant.HOB_NAME_DEFAULT
+	}
+
+	tag := fmt.Sprintf("[%v::%v::%v::%v]", id.HobRoot, newKind.ParentKind, newKind.Kind, name2)
+
+	res := HobRoot{
+		GlobalID:   id.HobRoot,
+		ParentKind: newKind.ParentKind,
+		Kind:       newKind.Kind,
+		Name:       name2,
+		Tag:        tag,
+	}
+
+	fmt.Printf("New object created: %v\n", res.Tag)
+
+	return res
+}
+
+func (h *HobRoot) Main() (result.HobResultSuccess, result.HobResultError, result.HobResultErrorCode) {
+	res := fmt.Sprintf("%v says goodbye.", h.Name)
+
+	return &res, nil, nil
+}
+
+func (h *HobRoot) String() string {
+	bytes, err := json.MarshalIndent(h, "", "  ")
+	if err != nil {
+		return fmt.Sprintf("%#v", h)
+	}
+
+	return fmt.Sprintf("%s", bytes)
 }

@@ -20,8 +20,9 @@ package libhob
 
 import (
 	"gitlab.com/defcronyke/libhob/src/app"
+	"gitlab.com/defcronyke/libhob/src/result"
 )
 
-func Main(app app.HobAppIntr) {
-	app.Main()
+func Main(app app.HobAppIntr) (result.HobResultSuccess, result.HobResultError, result.HobResultErrorCode) {
+	return app.Main()
 }

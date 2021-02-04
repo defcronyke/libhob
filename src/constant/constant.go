@@ -1,4 +1,4 @@
-/*Package id is a package for this project.
+/*Package constant is a package for this project.
 
 Copyright (c) 2021 Jeremy Carter <jeremy@jeremycarter.ca>
 
@@ -16,10 +16,8 @@ so furthermore, whenever legally possible, all license
 terms from all of the different technologies apply, with
 this project's license terms taking first priority.
 */
-package id
+package constant
 
-type HobID = string
-
-const (
-	HobRoot HobID = "HobRoot"
-)
+const HOB_NAME_DEFAULT = "Unnamed"
+const HOB_NAME = "Hob"
+const HOB_VERSION = "v0.1.x"
